@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBEPq8H-JQQo4t6zbeWG9mskb6-Pcm5BVc",
+    authDomain: "the-good-doc.firebaseapp.com",
+    databaseURL: "https://the-good-doc.firebaseio.com",
+    projectId: "the-good-doc",
+    storageBucket: "the-good-doc.appspot.com",
+    messagingSenderId: "389035349044"
+  };
+  firebase.initializeApp(config);
+</script>
+<style>
+#login{
+	padding:30px;
+	width:10%;
+   	margin-top:100px;
+	margin-bottom:300px;
+	background-color: #d9d9d9;
+	
+	border-radius:30px;
+	
+	
+	/*box-shadow:5px 5px 5px;*/
+	center
+	}
+	
+	body{
+	background-image:url("http://www.bucklarchitects.com/wp-content/uploads/2015/12/1-MMC-Gagnon-Lobby-1080-1.png"); 
+	background-position: left top;
+       	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+        background-size: cover;
+	height:100%;
+	overflow: hidden;
+	
+	 
+	}*/
+	/*{
+	background-image: url("http://www.bucklarchitects.com/wp-content/uploads/2015/12/1-MMC-Gagnon-Lobby-1080-1.png");
+	background-repeat: no-repeat;
+	height: 120%;
+	width:100%;hospital.jpg
+	background-size: cover;
+	background-position: center;
+	
+		
+	}
+	*/
+	b{
+	color:white;
+	font-size:20px;
+	}
+	
+	h1{
+	margin-left:500px;
+	font-size:100px;
+	color:white;
+	text-shadow:5px 5px 5px black;
+	
+	}
+	
+	
+</style>
+<script>
+function login(){
+	
+   var loginbutton = document.getElementById('clickedLogin');
+	
+   //loginbutton.onclick = function() {
+
+	//Get login elements
+	var userName = document.getElementById("Username").value;
+	var password = document.getElementById("Password").value;
+
+	//sign in
+	firebase.auth().signInWithEmailAndPassword(userName,password).then(function(user){
+		if(user){
+			
+		//access status from your database
+		var statusRef = firebase.database().ref("user/" + user.uid + "/status");
+		statusRef.on("value", function(snapshot) {
+			
+		var currentStatus = snapshot.val();
+						
+			//checking if this dood is a doctor
+		    if(currentStatus == "doc"){
+			    
+			    //if mans is a doctor, bring him to the doc page
+			    location.href = "doc.html";
+			 
+			    
+		    } else
+		    	    //if mans is a patient bring him to the patient page
+			    location.href = "patient.html";
+			
+		});
+					
+		 }
+	     }).catch(function(error){
+			alert(error);
+				
+		});
+			
+	//}
+	
+	/*
+	var user = document.getElementById("Username").value;
+	if(user == "doc"){
+		document.getElementById("click").onclick = function () {
+        		location.href = "doc.html";
+    		};	
+	}
+	else{
+		document.getElementById("click").onclick = function () {
+        		location.href = "patient.html";
+    		};
+	}*/
+
+}
+</script>
+<div id="bg">
+<head>
+<h1> What's Up Doc</h1>
+	
+</head>
+<body>
+	
+<center>
+<div id="login">
+<b>Username: </b> <input type="text" id="Username" placeholder="email"><br>
+<b>Password: </b> <input type="password" id="Password" placeholder="password"><br>
+<button id="clickedLogin" onclick="login()">Login</button>
+
+<form action="signup.html">
+    <input type="submit" value="Sign Up" />
+</form>
+	
+	</div>
+	</div>
+	</center>
+	
+	
+
+</body>
+</html>

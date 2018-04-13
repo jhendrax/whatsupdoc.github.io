@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #235;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #200;
+}
+</style>
+</head>
+<body>
+
+	<ul>
+   		<li id="top"><a class="active" href="patient.html">Home</a></li>
+		<li id="top"><a href="Chatbox.html">Chatbox</a></li>
+		
+		<li id="top"><a href="contact1.html">Contact</a></li>
+		<li id="top"><a href="Prescriptions.html">Prescriptions</a></li>
+		<li id="top"><a href="index.html">Logout</a></li>
+		
+	</ul>
+<h1> Prescription </h1>
+<h2 id="bigOne"> ! </h2>	
+
+
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBruurv91eJRAhxoGZ_yhY5SaMJJHTebn0",
+    authDomain: "web-quickstart-20395.firebaseapp.com",
+    databaseURL: "https://web-quickstart-20395.firebaseio.com",
+    projectId: "web-quickstart-20395",
+    storageBucket: "web-quickstart-20395.appspot.com",
+    messagingSenderId: "578241609146"
+  };
+  firebase.initializeApp(config);
+  
+  var bigOne = document.getElementById('bigOne');
+  var dbRef = firebase.database().ref().child('text');
+  dbRef.on('value', snap => bigOne.innerText = snap.val()); 
+</script>
+</body>
+</html>

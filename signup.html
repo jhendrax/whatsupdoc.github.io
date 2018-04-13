@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	
+<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBEPq8H-JQQo4t6zbeWG9mskb6-Pcm5BVc",
+    authDomain: "the-good-doc.firebaseapp.com",
+    databaseURL: "https://the-good-doc.firebaseio.com",
+    projectId: "the-good-doc",
+    storageBucket: "the-good-doc.appspot.com",
+    messagingSenderId: "389035349044"
+  };
+  firebase.initializeApp(config);
+function register(){
+			var email = document.getElementById("e").value;
+			var password = document.getElementById("p").value;
+			var firstn = document.getElementById("f").value;
+			var lastn = document.getElementById("l").value;
+			var status = document.getElementById("s").value;
+			
+			firebase.auth().createUserWithEmailAndPassword(email,password).then(function(user){
+				alert(firstn);
+				var db = firebase.database().ref("user/" + user.uid);
+				db.set({email:user.email, firstn:firstn, lastn:lastn, status:status
+				});	
+				});
+			
+			}
+function signin(){
+			var email = document.getElementById("e").value;
+			var password = document.getElementById("p").value;
+			var firstn = document.getElementById("f").value;
+			var lastn = document.getElementById("l").value;
+			var status = document.getElementById("s").value;
+			firebase.auth().signInWithEmailAndPassword(email,password).then(function(user){
+				if(user){
+					alert("Welcome " + firstn + lastn);
+					//checking to see udid
+					console.log(user.uid);
+				}
+				}).catch(function(error){
+					alert(error);
+				
+			});
+			if(status == "patient"){
+			document.getElementById("in").onclick = function () {
+        			location.href = "patient.html";
+    			};
+			}
+			else{
+			document.getElementById("in").onclick = function () {
+        			location.href = "doc.html";
+    			};
+			}
+		}
+	
+</script>
+	<style>
+.center {
+    margin: auto;
+    width: 60%;
+    padding: 10px;
+	}
+#sign{
+	padding:30px;
+	width:10%;
+   	margin-top:100px;
+	margin-bottom:300px;
+	background-color: #d9d9d9;
+	
+	border-radius:30px;
+	
+	
+	/*box-shadow:5px 5px 5px;*/
+	center
+	}
+body{
+	background-image:url("http://www.bucklarchitects.com/wp-content/uploads/2015/12/1-MMC-Gagnon-Lobby-1080-1.png"); 
+	background-position: left top;
+       	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+        background-size: cover;
+	height:100%;
+	overflow: hidden;
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+	
+		
+	</style>	
+		</head>
+<body>
+	<div class="center" id="sign">
+		
+	<center>
+		
+		<div class="container">
+	<h1 href="index.html">Sign Up</h1><br><br>
+	<input id="f" type="text" placeholder="First"><br><br>
+	<input id="l" type="text" placeholder="Last"><br><br>
+	<input id="e" type="text" placeholder="Email"><br><br>
+	<input id="p" type="password" placeholder="Password"><br><br>
+	<input id="s" type="text" placeholder="Patient or Doctor"><br><br>
+	<button onclick="register()">Register</button>
+	<button id="in" onclick="signin()">Sign In</button>
+	
+		</div>
+
+
+
+	</center>
+</div>
+	
+	</body>
+</html>
